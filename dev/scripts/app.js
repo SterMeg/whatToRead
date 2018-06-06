@@ -19,14 +19,16 @@ import Nav from './Nav';
     // each saved book has checkable 'reading' and 'read' options and delete book button
 
 
-const config = {
-  apiKey: "AIzaSyBkxhr4FMicWjtQin03JrWbbGVhe8mJgzM",
-  authDomain: "whattoreadapp.firebaseapp.com",
-  databaseURL: "https://whattoreadapp.firebaseio.com",
-  projectId: "whattoreadapp",
-  storageBucket: "whattoreadapp.appspot.com",
-  messagingSenderId: "493854943854"
+// Initialize Firebase
+var config = {
+  apiKey: "AIzaSyCIZkha1NB55fYqMFqIegIGmFPuvqMkG6o",
+  authDomain: "getlitbookrecommendations.firebaseapp.com",
+  databaseURL: "https://getlitbookrecommendations.firebaseio.com",
+  projectId: "getlitbookrecommendations",
+  storageBucket: "getlitbookrecommendations.appspot.com",
+  messagingSenderId: "757958933868"
 };
+
 
 firebase.initializeApp(config);
 

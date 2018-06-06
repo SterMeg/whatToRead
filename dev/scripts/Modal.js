@@ -66,9 +66,10 @@ class Modal extends React.Component {
             });
 
             this.authorDisplay();
-            this.results.scrollIntoView({ behavior: "smooth" });
         })
+        this.anchor.scrollIntoView({ behavior: "smooth" });
     }
+    
 
     // If multiple authors, pulls main author from array, else pulls single author.
     authorDisplay() {
@@ -104,7 +105,8 @@ class Modal extends React.Component {
         const {bookData, similarBooksDisplay, bookID, authorName} = this.state;
 
         return (
-            <div ref={node => this.results = node} className="modal-background">
+            <div className="modal-background">
+                <div ref={node => this.anchor = node} className="anchor" /> 
                 <div className="modal__close-button" onClick={() => this.state.onClose([])}>
                     <i className="fa fa-times modal__close-icon"></i>
                 </div>
