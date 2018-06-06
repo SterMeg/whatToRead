@@ -2,7 +2,8 @@ import React from "react";
 import axios from "axios";
 import qs from "qs";
 import firebase from "firebase";
-import SavedData from "./SavedData.js"
+import SavedData from "./SavedData.js";
+import Footer from './Footer.js';
 
 class SavedBooks extends React.Component {
   constructor(props) {
@@ -79,7 +80,7 @@ class SavedBooks extends React.Component {
   render() {
     return (
       <div className="saved">
-        <div className="saved-section wrapper">
+        <div className="saved-section">
           {this.state.savedBooks.map((savedBook, savedKey) => {
             return (
               <SavedData
@@ -92,6 +93,7 @@ class SavedBooks extends React.Component {
             );
           })}
         </div>
+        <Footer />
       </div>
     );
   }

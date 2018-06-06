@@ -85,10 +85,10 @@ class App extends React.Component {
   render() {
     return <Router>
         <div className="app-container">
-          <Nav 
-            loggedIn={this.state.loggedIn}
-            login={this.loginWithGoogle}
-            logout={this.logout} />
+          <Nav
+          loggedIn={this.state.loggedIn}
+          login={this.loginWithGoogle}
+          logout={this.logout} />
           <Route 
             exact path="/" 
             render={() => 
@@ -97,7 +97,6 @@ class App extends React.Component {
                 loggedIn={this.state.loggedIn} 
                 login={this.loginWithGoogle} />} />
           <Route path="/SavedBooks" component={SavedBooks} />
-          <Footer />
         </div>
       </Router>;
   }

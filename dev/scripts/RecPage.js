@@ -4,6 +4,7 @@ import qs from "qs";
 import GenreRes from "./GenreRes";
 import Modal from "./Modal";
 import firebase from "firebase";
+import Footer from "./Footer";
 
 class RecPage extends React.Component {
     constructor(props) {
@@ -14,13 +15,16 @@ class RecPage extends React.Component {
             books: [],
             selectedBook: [],
             loggedIn: false,
-            index: 0
+            index: 0,
+            rowOne: [],
+            rowTwo: []
         };
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.pageForward = this.pageForward.bind(this);
         this.pageBack = this.pageBack.bind(this);
+        this.sliceBooksforRow = this.sliceBooksforRow.bind(this);
     }
 
     handleChange(e) {
@@ -79,6 +83,10 @@ class RecPage extends React.Component {
                 books: completeBatch,
                 index: 0
             });
+
+            if (i === 4) {
+                this.sliceBooksforRow();
+            }
         });
     }
 
@@ -87,7 +95,9 @@ class RecPage extends React.Component {
     pageForward() {
         this.setState({
             index: this.state.index + 1
-        })
+        }, () => {
+        this.sliceBooksforRow();
+        });
     }
 
     //Moves array index back when prev button clicked
@@ -95,11 +105,27 @@ class RecPage extends React.Component {
     pageBack() {
         this.setState({
             index: this.state.index - 1
-        })
+        }, () => {
+        this.sliceBooksforRow();
+        });
+    }
+
+    sliceBooksforRow() {
+        if (this.state.books.length > 0) {
+            const booksToSlice = Array.from(this.state.books[this.state.index]);
+            console.log(this.state.index);
+            const rowOne = booksToSlice.slice(0, 5);
+            const rowTwo = booksToSlice.slice(5, 10);
+
+            this.setState({
+                rowOne: rowOne,
+                rowTwo: rowTwo
+            })
+        }
     }
 
     render () {
-        const { index, books, selectedBook } = this.state;
+        const { index, books, selectedBook, rowOne, rowTwo } = this.state;
             return (
                 <div className="app-container">
                     <header>
@@ -126,12 +152,14 @@ class RecPage extends React.Component {
                     </div>
                     </header>
                         <div className="result-modal-container">
-                            {books.length > 0 && <GenreRes
+                            {rowOne.length > 0 && <GenreRes
                             books={books}
                             onBookSelect={selectedBook => this.setState({ selectedBook })}
                             index={index}
                             pageForward={this.pageForward}
                             pageBack={this.pageBack}
+                            rowOne={rowOne}
+                            rowTwo={rowTwo}
                             />}
                             {selectedBook.best_book !== undefined && (
                             <Modal
@@ -143,6 +171,7 @@ class RecPage extends React.Component {
                             />
                             )}
                         </div>
+                    {books.length > 0 && <Footer />}
                 </div>
             );        
     }
