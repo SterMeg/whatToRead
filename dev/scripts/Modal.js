@@ -118,11 +118,11 @@ class Modal extends React.Component {
 
         return (
             <div ref={node => this.anchor = node} className="modal-background">
-                <ScrollLock touchScrollTarget={this.scrollTarget}/>
+                {/* <ScrollLock touchScrollTarget={this.scrollTarget}/> */}
                 <div className="modal__close-button" onClick={() => this.state.onClose([])}>
                     <i className="fa fa-times modal__close-icon"></i>
                 </div>
-                <div id="modal" className="modal" ref={this.getScrollTarget} style={{ overflowY: 'auto'}}>
+                <div id="modal" className="modal">
                     <h2 className="modal__title">{bookData.title}</h2>
                     <div className="modal__author-page clearfix">
                         <h3 className="modal__author">by {authorName}</h3>
