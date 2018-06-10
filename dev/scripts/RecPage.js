@@ -25,6 +25,7 @@ class RecPage extends React.Component {
         this.pageForward = this.pageForward.bind(this);
         this.pageBack = this.pageBack.bind(this);
         this.sliceBooksforRow = this.sliceBooksforRow.bind(this);
+        // this.scrollTo = this.scrollTo.bind(this);
     }
 
     handleChange(e) {
@@ -50,7 +51,7 @@ class RecPage extends React.Component {
 
     getBooksByGenre(i) {
         axios({
-        url: "http://proxy.hackeryou.com",
+        url: "https://proxy.hackeryou.com",
         method: "GET",
         dataResponse: "JSON",
         paramsSerializer: function(params) {
@@ -113,7 +114,6 @@ class RecPage extends React.Component {
     sliceBooksforRow() {
         if (this.state.books.length > 0) {
             const booksToSlice = Array.from(this.state.books[this.state.index]);
-            console.log(this.state.index);
             const rowOne = booksToSlice.slice(0, 5);
             const rowTwo = booksToSlice.slice(5, 10);
 
@@ -123,6 +123,12 @@ class RecPage extends React.Component {
             })
         }
     }
+
+    // scrollTo(e) {
+    //     e.preventDefault;
+    //     console.log('clicked');
+       
+    // }
 
     render () {
         const { index, books, selectedBook, rowOne, rowTwo } = this.state;
@@ -147,11 +153,12 @@ class RecPage extends React.Component {
                             <option value="thriller">Thriller</option>
                             <option value="humor">Humor</option>
                         </select>
-                        <input type="submit" value="Find Books"/>
+                        <input type="submit" value="Find Books" />
                         </form>
                     </div>
                     </header>
-                        <div className="result-modal-container">
+                    <div className="result-modal-container">
+                        <div  className="anchor" />
                             {rowOne.length > 0 && <GenreRes
                             books={books}
                             onBookSelect={selectedBook => this.setState({ selectedBook })}

@@ -3,6 +3,7 @@ import axios from "axios";
 import qs from "qs";
 import firebase from 'firebase';
 import SimilarBooks from "./SimilarBooks";
+import ScrollLock from 'react-scrolllock';
 
 //id needs to be a variable
 //hook in selected book
@@ -23,6 +24,7 @@ import SimilarBooks from "./SimilarBooks";
 class Modal extends React.Component {
     constructor(props) {
         super();
+        this.getScrollTarget = (ref) => { this.scrollTarget = ref; }
         this.state = {
             singleTitle: [],
             bookID: props.bookID,
@@ -37,8 +39,18 @@ class Modal extends React.Component {
     }
 
     componentDidMount () {
+        //scroll to top of component when component mounts
+        this.anchor.scrollIntoView();
+        //Account for sticky nav
+        window.scrollBy({
+            "behavior": "smooth",
+            "left": 0,
+            "top": -40
+        });
+
+        //Make second call to GoodReads for individual book info
         axios({
-        url: "http://proxy.hackeryou.com",
+        url: "https://proxy.hackeryou.com",
         method: "GET",
         dataResponse: "JSON",
         paramsSerializer: function(params) {
@@ -64,12 +76,10 @@ class Modal extends React.Component {
                 similarBooksDisplay: similarBooksDisplay,
                 authors: authors
             });
-
+        }), () => {
             this.authorDisplay();
-        })
-        this.anchor.scrollIntoView({ behavior: "smooth" });
+        }
     }
-    
 
     // If multiple authors, pulls main author from array, else pulls single author.
     authorDisplay() {
@@ -101,16 +111,18 @@ class Modal extends React.Component {
         dbRef.set(savedBook);
     }
 
+    
+
     render () {
         const {bookData, similarBooksDisplay, bookID, authorName} = this.state;
 
         return (
-            <div className="modal-background">
-                <div ref={node => this.anchor = node} className="anchor" /> 
+            <div ref={node => this.anchor = node} className="modal-background">
+                <ScrollLock touchScrollTarget={this.scrollTarget}/>
                 <div className="modal__close-button" onClick={() => this.state.onClose([])}>
                     <i className="fa fa-times modal__close-icon"></i>
                 </div>
-                <div className="modal">
+                <div id="modal" className="modal" ref={this.getScrollTarget} style={{ overflowY: 'auto'}}>
                     <h2 className="modal__title">{bookData.title}</h2>
                     <div className="modal__author-page clearfix">
                         <h3 className="modal__author">by {authorName}</h3>

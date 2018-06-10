@@ -29,7 +29,6 @@ var config = {
   messagingSenderId: "757958933868"
 };
 
-
 firebase.initializeApp(config);
 
 class App extends React.Component {

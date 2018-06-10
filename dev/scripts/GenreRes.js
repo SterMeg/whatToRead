@@ -11,14 +11,21 @@ class GenreRes extends React.Component {
         super(props);
     }
 
+    // componentDidUpdate() {
+    //     this.anchor.scrollIntoView({behavior: "smooth"});
+    // }
+
     componentDidMount() {
-        this.anchor.scrollIntoView({behavior: "smooth"});
+        this.anchor.scrollIntoView();
+        window.scrollBy({
+            "left": 0,
+            "top": -40
+        });
     }
 
     render () {
     return (
-        <div className="res-container">
-            <div ref={node => this.anchor = node} className="anchor" />
+        <div ref={node => this.anchor = node} className="res-container">
             <section className="results">
                 <div className="gallery clearfix">
                     <div className="emblem-container">
@@ -30,7 +37,7 @@ class GenreRes extends React.Component {
                             return (
                                 <div className="title-gallery clearfix" key={book.best_book.id.$t} onClick={() => this.props.onBookSelect(book)}>
                                 <div className="cover-container">
-                                    {book.best_book.image_url.includes("nophoto") ? <div className="similar-books__no-photo"><p className="similar-books__no-photo-text">{book.best_book.title} by {book.best_book.author.name}</p></div> : <img className="similar-books__image" src={book.best_book.image_url} alt="Book cover" />}
+                                        {book.best_book.image_url.includes("nophoto") ? <div className="similar-books__no-photo"><img src="assets/icon4.svg" alt="" /><p className="similar-books__no-photo-text">{book.best_book.title} by {book.best_book.author.name}</p></div> : <img className="similar-books__image" src={book.best_book.image_url} alt="Book cover" />}
                                 </div>
                                     {/* <h3>{book.best_book.title}</h3> */}
                                 </div>
@@ -42,7 +49,7 @@ class GenreRes extends React.Component {
                             return (
                                 <div className="title-gallery clearfix" key={book.best_book.id.$t} onClick={() => {this.props.onBookSelect(book)}}>
                                     <div className="cover-container">
-                                        {book.best_book.image_url.includes("nophoto") ? <div className="similar-books__no-photo"><p className="similar-books__no-photo-text">{book.best_book.title} by {book.best_book.author.name}</p></div> : <img className="similar-books__image" src={book.best_book.image_url} alt="Book cover" />}
+                                        {book.best_book.image_url.includes("nophoto") ? <div className="similar-books__no-photo"><img src="assets/icon4.svg" alt="" /><p className="similar-books__no-photo-text">{book.best_book.title} by {book.best_book.author.name}</p></div> : <img className="similar-books__image" src={book.best_book.image_url} alt="Book cover" />}
                                         {/* <img src={book.best_book.image_url} alt="Book Cover" /> */}
                                     </div>
                                     {/* <h3>{book.best_book.title}</h3> */}

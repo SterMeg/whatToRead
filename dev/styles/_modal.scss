@@ -26,6 +26,10 @@
 
 .result-modal-container {
     position: relative;
+    .anchor {
+      position: absolute;
+      top: -30px;
+  }
 }
 
 .modal-background {
